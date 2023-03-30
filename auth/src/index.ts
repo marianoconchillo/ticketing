@@ -8,9 +8,12 @@ import { signOutRouter } from "./routes/signOut";
 import { signUpRouters } from "./routes/signUp";
 import { errorHandler } from "./middlewares/error-handler";
 import { NotFoundError } from "./errors/not-found-error";
+import cookieSession from "cookie-session";
 
 const app: Application = express();
+app.set("trust proxy", true);
 app.use(json());
+app.use(cookieSession({ signed: false, secure: true }));
 
 app.use(currentUserRouter);
 app.use(signInRouter);
