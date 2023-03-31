@@ -5,7 +5,7 @@ import mongoose from "mongoose";
 import { currentUserRouter } from "./routes/current-user";
 import { signInRouter } from "./routes/signIn";
 import { signOutRouter } from "./routes/signOut";
-import { signUpRouters } from "./routes/signUp";
+import { signUpRouter } from "./routes/signUp";
 import { errorHandler } from "./middlewares/error-handler";
 import { NotFoundError } from "./errors/not-found-error";
 import cookieSession from "cookie-session";
@@ -18,7 +18,7 @@ app.use(cookieSession({ signed: false, secure: true }));
 app.use(currentUserRouter);
 app.use(signInRouter);
 app.use(signOutRouter);
-app.use(signUpRouters);
+app.use(signUpRouter);
 
 app.all("*", async () => {
   throw new NotFoundError();
@@ -27,6 +27,10 @@ app.all("*", async () => {
 app.use(errorHandler);
 
 const start = async () => {
+  if (!process.env.JWT_KEY) {
+    throw new Error("JWT_KEY must be defined");
+  }
+
   try {
     await mongoose.connect("mongodb://auth-mongo-srv:27017/auth");
     console.log("Connected to MongoDB");
