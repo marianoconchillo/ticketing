@@ -1,9 +1,11 @@
 import request from "supertest";
+import { Types } from "mongoose";
 import { app } from "../../app";
 import { signIn } from "../../test/auth-helper";
 
 it("returns a 404 if the ticket is not found", async () => {
-  await request(app).get("/api/tickets/12345").send().expect(404);
+  const id = new Types.ObjectId().toHexString();
+  await request(app).get(`/api/tickets/${id}`).send().expect(404);
 });
 
 it("returns the ticket if the ticket is found", async () => {
