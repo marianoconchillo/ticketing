@@ -1,15 +1,8 @@
 import "@/styles/globals.css";
 import type { AppProps, AppContext } from "next/app";
-import { Roboto } from "next/font/google";
 import buildClient from "@/api/build-client";
 import { ICurrentUser } from "@/interfaces/user";
 import Header from "@/components/ui/Header";
-
-const roboto = Roboto({
-  subsets: ["latin"],
-  weight: ["400", "500", "700"],
-  preload: true,
-});
 
 export interface Props extends AppProps {
   currentUser: ICurrentUser;
@@ -17,7 +10,7 @@ export interface Props extends AppProps {
 
 const MyApp = ({ Component, pageProps, currentUser }: Props) => {
   return (
-    <main className={roboto.className}>
+    <main>
       <Header currentUser={currentUser} />
       <Component currentUser={currentUser} {...pageProps} />
     </main>
