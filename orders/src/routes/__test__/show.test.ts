@@ -19,7 +19,7 @@ it("returns an error if one user tries to fetch another user order", async () =>
     .send({ ticketId: ticket.id })
     .expect(201);
 
-  const { body: fetchedOrder } = await request(app)
+  await request(app)
     .get(`/api/orders/${order.id}`)
     .set("Cookie", userTwo)
     .send()
