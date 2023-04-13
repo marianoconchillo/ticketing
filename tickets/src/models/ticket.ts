@@ -13,6 +13,7 @@ interface TicketDoc extends Document {
   price: number;
   userId: string;
   version: number;
+  orderId?: string;
 }
 
 // Describes the properties that a Ticket Model has
@@ -20,7 +21,7 @@ interface TicketModel extends Model<TicketDoc> {
   build: (attrs: TicketAttrs) => TicketDoc;
 }
 
-const ticketSchema = new Schema<TicketAttrs>(
+const ticketSchema = new Schema(
   {
     title: {
       type: String,
@@ -33,6 +34,9 @@ const ticketSchema = new Schema<TicketAttrs>(
     userId: {
       type: String,
       required: true,
+    },
+    orderId: {
+      type: String,
     },
   },
   {

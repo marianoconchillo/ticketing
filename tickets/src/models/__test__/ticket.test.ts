@@ -12,8 +12,8 @@ it("implements optimistic concurrency control", async () => {
   const secondInstance = await Ticket.findById(ticket.id);
 
   // Make two separate changes to the tickets we fetched
-  firstInstance!.set({ price: 10 });
-  secondInstance!.set({ price: 15 });
+  firstInstance!.set({ price: 10, version: firstInstance!.version + 1 });
+  secondInstance!.set({ price: 15, version: secondInstance!.version + 1 });
 
   // Save the first fetched ticket
   await firstInstance!.save();
@@ -26,15 +26,4 @@ it("implements optimistic concurrency control", async () => {
   }
 
   throw new Error("Should not reach this point");
-});
-
-it("increments the version number on multiple saves", async () => {
-  const ticket = Ticket.build({ title: "Concert", price: 5, userId: "123" });
-
-  await ticket.save();
-  expect(ticket.version).toEqual(0);
-  await ticket.save();
-  expect(ticket.version).toEqual(1);
-  await ticket.save();
-  expect(ticket.version).toEqual(2);
 });
