@@ -25,11 +25,12 @@ router.patch(
       throw new NotAuthorizedError();
     }
 
-    order.status = OrderStatus.Cancelled;
+    order.set({ status: OrderStatus.Cancelled, version: order.version + 1 });
     await order.save();
 
     new OrderCancelledPublisher(natsWrapper.client).publish({
       id: order.id,
+      version: order.version,
       ticket: { id: order.ticket.id },
     });
 

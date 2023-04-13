@@ -1,10 +1,12 @@
 import request from "supertest";
+import { Types } from "mongoose";
 import { app } from "../../app";
 import { Ticket } from "../../models/ticket";
 import { signIn } from "../../test/auth-helper";
 
 it("returns an error if one user tries to fetch another user order", async () => {
   const ticket = Ticket.build({
+    id: new Types.ObjectId().toHexString(),
     title: "Concert",
     price: 20,
   });
@@ -28,6 +30,7 @@ it("returns an error if one user tries to fetch another user order", async () =>
 
 it("fetches the order", async () => {
   const ticket = Ticket.build({
+    id: new Types.ObjectId().toHexString(),
     title: "Concert",
     price: 20,
   });

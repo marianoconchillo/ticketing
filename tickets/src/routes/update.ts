@@ -30,7 +30,7 @@ router.put(
       throw new NotAuthorizedError();
     }
 
-    ticket.set({ title, price });
+    ticket.set({ title, price, version: ticket.version + 1 });
     await ticket.save();
 
     new TicketUpdatedPublisher(natsWrapper.client).publish({
@@ -38,6 +38,7 @@ router.put(
       title: ticket.title,
       price: ticket.price,
       userId: ticket.userId,
+      version: ticket.version,
     });
 
     res.json(ticket);

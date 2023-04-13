@@ -1,5 +1,4 @@
 import { Schema, model, Model, Document } from "mongoose";
-import { updateIfCurrentPlugin } from "mongoose-update-if-current";
 
 // Describes the properties that are required to create a new Ticket
 interface TicketAttrs {
@@ -47,7 +46,13 @@ const ticketSchema = new Schema<TicketAttrs>(
 );
 
 ticketSchema.set("versionKey", "version");
-ticketSchema.plugin(updateIfCurrentPlugin);
+
+ticketSchema.pre("save", function (done) {
+  this.$where = {
+    version: this.get("version") - 1,
+  };
+  done();
+});
 
 ticketSchema.statics.build = (attrs: TicketAttrs) => {
   return new Ticket(attrs);

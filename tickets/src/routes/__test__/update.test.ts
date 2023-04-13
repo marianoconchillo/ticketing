@@ -63,7 +63,7 @@ it("returns a 400 if the user provides an invalid title or price", async () => {
     .expect(400);
 });
 
-it("updated the ticket provided valid input", async () => {
+it("updates the ticket provided valid input", async () => {
   const cookie = signIn();
 
   const response = await request(app)

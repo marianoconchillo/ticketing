@@ -15,7 +15,7 @@ import { natsWrapper } from "../nats-wrapper";
 
 const router = Router();
 
-const EXPIRATION_WINDOW_SECONDS = 15 * 60;
+const EXPIRATION_WINDOW_SECONDS = 1 * 60;
 
 router.post(
   "/api/orders",
@@ -54,6 +54,7 @@ router.post(
 
     new OrderCreatedPublisher(natsWrapper.client).publish({
       id: order.id,
+      version: order.version,
       status: order.status,
       expiresAt: order.expiresAt.toISOString(),
       userId: order.userId,

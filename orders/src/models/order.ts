@@ -18,6 +18,7 @@ interface OrderDoc extends Document {
   status: OrderStatus;
   expiresAt: Date;
   ticket: TicketDoc;
+  version: number;
 }
 
 // Describes the properties that a Order Model has
@@ -54,6 +55,15 @@ const orderSchema = new Schema(
     },
   }
 );
+
+orderSchema.set("versionKey", "version");
+
+orderSchema.pre("save", function (done) {
+  this.$where = {
+    version: this.get("version") - 1,
+  };
+  done();
+});
 
 orderSchema.statics.build = (attrs: OrderAttrs) => {
   return new Order(attrs);
