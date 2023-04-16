@@ -36,8 +36,6 @@ router.post(
       throw new BadRequestError("Order is cancelled");
     }
 
-    console.log(order);
-
     await stripe.charges.create({
       currency: "aud",
       amount: order.price * 100,

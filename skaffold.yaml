@@ -5,10 +5,12 @@ deploy:
     manifests:
       - ./infra/k8s/*
 build:
-  local:
-    push: false
+  # local:
+  #   push: false
+  googleCloudBuild:
+    projectId: ticketing-dev-383817
   artifacts:
-    - image: marianoconchillo/auth
+    - image: gcr.io/ticketing-dev-383817/auth
       context: auth
       docker:
         dockerfile: Dockerfile
@@ -16,7 +18,7 @@ build:
         manual:
           - src: "src/**/*.ts"
             dest: .
-    - image: marianoconchillo/client
+    - image: gcr.io/ticketing-dev-383817/client
       context: client
       docker:
         dockerfile: Dockerfile
@@ -24,7 +26,7 @@ build:
         manual:
           - src: "**/*.tsx"
             dest: .
-    - image: marianoconchillo/tickets
+    - image: gcr.io/ticketing-dev-383817/tickets
       context: tickets
       docker:
         dockerfile: Dockerfile
@@ -32,7 +34,7 @@ build:
         manual:
           - src: "src/**/*.ts"
             dest: .
-    - image: marianoconchillo/orders
+    - image: gcr.io/ticketing-dev-383817/orders
       context: orders
       docker:
         dockerfile: Dockerfile
@@ -40,7 +42,7 @@ build:
         manual:
           - src: "src/**/*.ts"
             dest: .
-    - image: marianoconchillo/expiration
+    - image: gcr.io/ticketing-dev-383817/expiration
       context: expiration
       docker:
         dockerfile: Dockerfile
@@ -48,7 +50,7 @@ build:
         manual:
           - src: "src/**/*.ts"
             dest: .
-    - image: marianoconchillo/payments
+    - image: gcr.io/ticketing-dev-383817/payments
       context: payments
       docker:
         dockerfile: Dockerfile
