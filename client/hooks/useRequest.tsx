@@ -1,36 +1,31 @@
 import { useState } from "react";
 import axios, { Method } from "axios";
 
-interface Props<T> {
+interface Props<T, U> {
   url: string;
   method: Method;
   body: T;
-  onSuccess?: () => void;
+  onSuccess?: (data?: U) => void;
 }
 
 interface ErrorElement {
   message: string;
 }
 
-const useRequest = <T extends Object>({
-  url,
-  method,
-  body,
-  onSuccess,
-}: Props<T>) => {
+const useRequest = <T, U>({ url, method, body, onSuccess }: Props<T, U>) => {
   const [errors, setErrors] = useState<JSX.Element | null>(null);
 
-  const doRequest = async () => {
+  const doRequest = async (props = {}) => {
     try {
       setErrors(null);
-      const { data } = await axios.request({
+      const { data } = await axios.request<U>({
         method,
         url,
-        data: body,
+        data: { ...body, ...props },
       });
 
       if (onSuccess) {
-        onSuccess();
+        onSuccess(data);
       }
 
       return data;

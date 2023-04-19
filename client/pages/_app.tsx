@@ -1,5 +1,5 @@
 import "@/styles/globals.css";
-import type { AppProps, AppContext } from "next/app";
+import type { AppContext, AppProps } from "next/app";
 import buildClient from "@/api/build-client";
 import { ICurrentUser } from "@/interfaces/user";
 import Header from "@/components/ui/Header";
@@ -10,10 +10,12 @@ export interface Props extends AppProps {
 
 const MyApp = ({ Component, pageProps, currentUser }: Props) => {
   return (
-    <main>
+    <>
       <Header currentUser={currentUser} />
-      <Component currentUser={currentUser} {...pageProps} />
-    </main>
+      <div className="container mx-auto">
+        <Component currentUser={currentUser} {...pageProps} />
+      </div>
+    </>
   );
 };
 

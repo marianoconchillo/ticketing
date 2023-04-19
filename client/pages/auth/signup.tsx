@@ -1,6 +1,7 @@
+import { NextPage } from "next";
 import AuthForm from "@/components/auth/AuthForm";
 
-const SignUp = () => {
+const SignUp: NextPage = () => {
   return <AuthForm url="/api/users/signup" title="Sign Up" />;
 };
 

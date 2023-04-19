@@ -15,6 +15,8 @@ const Header: NextPage<Props> = ({ currentUser }) => {
   const links: (Links | false)[] = [
     !currentUser && { label: "Sign In", href: "/auth/signin" },
     !currentUser && { label: "Sign Up", href: "/auth/signup" },
+    currentUser && { label: "Sell Tickets", href: "/tickets/new" },
+    currentUser && { label: "My Orders", href: "/orders/" },
     currentUser && { label: "Sign Out", href: "/auth/signout" },
   ];
 
@@ -31,7 +33,7 @@ const Header: NextPage<Props> = ({ currentUser }) => {
               link && (
                 <li
                   key={link.href}
-                  className="px-2 py-1.5 w-20 bg-teal-950 text-center text-white rounded"
+                  className="px-2 py-1.5 w-fit bg-teal-950 text-center text-white rounded"
                 >
                   <Link href={link.href}>{link.label}</Link>
                 </li>

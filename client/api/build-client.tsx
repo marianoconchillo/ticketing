@@ -1,8 +1,9 @@
 import axios from "axios";
-import { IncomingMessage } from "http";
-import { NextPageContext } from "next";
+import { GetServerSidePropsContext, NextPageContext } from "next";
 
-const buildClient = ({ req }: NextPageContext) => {
+type ContextType = GetServerSidePropsContext | NextPageContext;
+
+const buildClient = <T extends ContextType>({ req }: T) => {
   if (typeof window === "undefined") {
     return axios.create({
       baseURL:

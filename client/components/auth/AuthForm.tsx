@@ -24,24 +24,23 @@ const AuthForm = ({ url, title }: Props) => {
   };
 
   return (
-    <form
-      className="container mx-auto flex flex-col space-y-5"
-      onSubmit={handleSubmit}
-    >
+    <form className="flex flex-col space-y-5" onSubmit={handleSubmit}>
       <h1 className="text-3xl">{title}</h1>
-      <label className="block">
+      <label className="block" htmlFor="email-input">
         <span className="block">Email Address</span>
         <input
           type="email"
+          id="email-input"
           className="border rounded-md focus:outline-none px-2"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
         />
       </label>
-      <label className="block">
+      <label className="block" htmlFor="password-input">
         <span className="block">Password</span>
         <input
           type="password"
+          id="password-input"
           className="border rounded-md focus:outline-none px-2"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
