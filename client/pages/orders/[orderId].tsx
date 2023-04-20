@@ -6,6 +6,7 @@ import { IOrder } from "@/interfaces/order";
 import buildClient from "@/api/build-client";
 import { ICurrentUser } from "@/interfaces/user";
 import CheckoutForm from "@/components/order/CheckoutForm";
+import Link from "next/link";
 
 interface Props {
   order: IOrder;
@@ -32,12 +33,30 @@ const OrderShow: NextPage<Props> = ({ order, currentUser }) => {
   }, []);
 
   return (
-    <div>
-      {timeLeft < 0 ? <>Order Expired</> : <>Time to pay: {timeLeft} seconds</>}
+    <div className="container flex flex-col items-center space-y-5">
+      {timeLeft >= 0 ? (
+        <>
+          <p className="italic">
+            {timeLeft >= 0 && `Time to pay: ${timeLeft}`}
+          </p>
 
-      <Elements stripe={stripePromise}>
-        <CheckoutForm orderId={order.id} />
-      </Elements>
+          <Elements stripe={stripePromise}>
+            <CheckoutForm orderId={order.id} />
+          </Elements>
+        </>
+      ) : (
+        <>
+          <h2 className="text-2xl font-bold text-red-700">Order Expired</h2>
+          <Link href={`/`}>
+            <button
+              type="submit"
+              className="px-3 py-1.5 rounded text-white font-bold bg-indigo-500"
+            >
+              See Tickets
+            </button>
+          </Link>
+        </>
+      )}
     </div>
   );
 };

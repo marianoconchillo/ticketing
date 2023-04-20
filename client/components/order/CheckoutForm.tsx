@@ -2,6 +2,7 @@ import { useState } from "react";
 import Router from "next/router";
 import { CardElement, useElements, useStripe } from "@stripe/react-stripe-js";
 import useRequest from "@/hooks/useRequest";
+import Loading from "../ui/Loading";
 
 interface Props {
   orderId: string;
@@ -52,6 +53,7 @@ const CheckoutForm = ({ orderId }: Props) => {
       onSubmit={handleSubmit}
       className="container border rounded-sm max-w-sm p-3 flex flex-col space-y-5"
     >
+      <p className="font-medium text-slate-900">Card Details</p>
       <CardElement />
 
       <button
@@ -59,9 +61,10 @@ const CheckoutForm = ({ orderId }: Props) => {
         className="w-full py-1.5 rounded text-white font-bold bg-indigo-500"
         disabled={!stripe}
       >
-        {processing ? `Loading ...` : `Pay With Card`}
+        {processing ? <Loading /> : `Pay With Card`}
       </button>
       {errors}
+      {processingErrors}
     </form>
   );
 };
