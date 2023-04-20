@@ -2,6 +2,7 @@ import { NextPage } from "next";
 import { useEffect } from "react";
 import Router from "next/router";
 import useRequest from "@/hooks/useRequest";
+import Loading from "@/components/ui/Loading";
 
 const SignOut: NextPage = () => {
   const { doRequest } = useRequest({
@@ -15,7 +16,7 @@ const SignOut: NextPage = () => {
     doRequest();
   }, []);
 
-  return <div>Signing you out...</div>;
+  return <Loading />;
 };
 
 export default SignOut;

@@ -3,6 +3,7 @@ import type { AppContext, AppProps } from "next/app";
 import buildClient from "@/api/build-client";
 import { ICurrentUser } from "@/interfaces/user";
 import Header from "@/components/ui/Header";
+import Footer from "@/components/ui/Footer";
 
 export interface Props extends AppProps {
   currentUser: ICurrentUser;
@@ -10,12 +11,11 @@ export interface Props extends AppProps {
 
 const MyApp = ({ Component, pageProps, currentUser }: Props) => {
   return (
-    <>
+    <div className="min-h-screen flex flex-col justify-between">
       <Header currentUser={currentUser} />
-      <div className="container mx-auto">
-        <Component currentUser={currentUser} {...pageProps} />
-      </div>
-    </>
+      <Component currentUser={currentUser} {...pageProps} />
+      <Footer />
+    </div>
   );
 };
 
