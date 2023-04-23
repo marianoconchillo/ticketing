@@ -15,7 +15,7 @@ The microservices architecture allows for easy scaling and maintenance of the ap
 
 ## Code Reusability
 
-The microservices share common code, making it more reusable through an NPM library that has been implemented (common).
+The microservices share common code, making it more reusable through an NPM library that has been implemented ([common](https://github.com/marianoconchillo/mcticketingapp-common)).
 
 ## Testing
 
